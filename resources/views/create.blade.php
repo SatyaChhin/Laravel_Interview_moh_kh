@@ -45,7 +45,6 @@
             <label for="inputState" class="form-label">ភូមិ</label>
             <select id="vl" class="form-select" name="vl" disabled="disabled">
                 <option selected>Choose...</option>
-                <option>...</option>
             </select>
         </div>
 
@@ -55,67 +54,41 @@
     </form>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script>
-        $(function() {
-            $('body').on('change', function(event) {
-                let pv = $('select[name=pv]').val()
-                let dt = $('select[name=dt]').val()
-                let cu = $('select[name=cu]').val()
-                let vl = $('select[name=vl]').val()
-                if (pv == "បន្ទាយមានជ័យ") {
-                    $("#dt").prop("disabled", false);
-                    let resp = [{
-                            "id": "ស្រុកភ្នំស្រុក",
-                            "name": "ស្រុកភ្នំស្រុក"
-                        },
-                        {
-                            "id": "ស្រុកមង្គលបូរី",
-                            "name": "ស្រុកមង្គលបូរី"
-                        },
-                    ]
-                    var option = "";
-                    for (i = 0; i < resp.length; i++) {
-                        option += "<option value='" + resp[i].id + "'>" + resp[i].name + "</option>";
-                    }
-                    $('#dt').html(option)
-
-                    if (dt == "ស្រុកមង្គលបូរី") {
-                        $("#cu").prop("disabled", false);
-                        let resp = [{
-                                "id": "ឃុំបន្ទាយនាង",
-                                "name": "ឃុំបន្ទាយនាង"
-                            },
-                            {
-                                "id": "ឃុំបត់ត្រង់",
-                                "name": "ឃុំបត់ត្រង់"
-                            },
-                        ]
-                        var option = "";
-                        for (i = 0; i < resp.length; i++) {
-                            option += "<option value='" + resp[i].id + "'>" + resp[i].name + "</option>";
-                        }
-                        $('#cu').html(option)
-                    }
-                    if (cu == "ឃុំបត់ត្រង់") {
-                        $("#vl").prop("disabled", false);
-                        let resp = [{
-                                "id": "ភូមិខ្ទុម្ពរាយលិច ",
-                                "name": "ភូមិខ្ទុម្ពរាយលិច "
-                            },
-                            {
-                                "id": "ភូមិអន្លង់ថ្ងាន់កើត",
-                                "name": "ភូមិអន្លង់ថ្ងាន់កើត"
-                            },
-                        ]
-                        var option = "";
-                        for (i = 0; i < resp.length; i++) {
-                            option += "<option value='" + resp[i].id + "'>" + resp[i].name + "</option>";
-                        }
-                        $('#vl').html(option)
-                    }
-                }else{
-
+        $('#pv').change(function() {
+            if ($('select[name=pv]').val() == "បន្ទាយមានជ័យ") {
+                $("#dt").prop("disabled", false);
+                let data = ["ស្រុកមង្គលបូរី", "ស្រុកភ្នំស្រុក"]
+                let option = ""
+                $("#dt").find('option').remove()
+                for (let i = 0; i < data.length; i++) {
+                    option += "<option>" + data[i] + "</option>"
                 }
-            });
+                $("#dt").append(option)
+            }
         });
+        $('#dt').change(function() {
+            if ($('select[name=dt]').val() == "ស្រុកភ្នំស្រុក") {
+                $("#cu").prop("disabled", false);
+                let data = ["ឃុំណាំតៅ", "ឃុំប៉ោយចារ"]
+                let option = ""
+                $("#cu").find('option').remove()
+                for (let i = 0; i < data.length; i++) {
+                    option += "<option>" + data[i] + "</option>"
+                }
+                $("#cu").append(option)
+            }
+        })
+        $('#cu').change(function() {
+            if ($('select[name=cu]').val() == "ឃុំប៉ោយចារ") {
+                $("#vl").prop("disabled", false);
+                let data = ["ប៉ោយស្នួល", "ប៉ោយចារ"]
+                let option = ""
+                $("#vl").find('option').remove()
+                for (let i = 0; i < data.length; i++) {
+                    option += "<option>" + data[i] + "</option>"
+                }
+                $("#vl").append(option)
+            }
+        })
     </script>
 @endsection
